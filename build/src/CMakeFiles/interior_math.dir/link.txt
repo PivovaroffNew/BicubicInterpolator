@@ -1,0 +1,2 @@
+C:\Strawberry\c\bin\ar.exe qc libinterior_math.a CMakeFiles/interior_math.dir/BicubicInterpolator.cpp.obj
+C:\Strawberry\c\bin\ranlib.exe libinterior_math.a

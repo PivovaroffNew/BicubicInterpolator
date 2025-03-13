@@ -1,0 +1,1 @@
+  -L"W:/wolfram/13.0/SystemFiles/Links/WSTP/DeveloperKit/Windows-x86-64/CompilerAdditions"  libinterior_math.a "W:/wolfram/13.0/SystemFiles/Links/WSTP/DeveloperKit/Windows-x86-64/CompilerAdditions/wstp64i4.lib" -lWSTP64i4 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
