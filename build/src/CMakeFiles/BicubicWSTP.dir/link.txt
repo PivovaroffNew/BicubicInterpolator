@@ -1,3 +1,0 @@
-C:\Strawberry\c\bin\cmake.exe -E rm -f CMakeFiles\BicubicWSTP.dir/objects.a
-C:\Strawberry\c\bin\ar.exe qc CMakeFiles\BicubicWSTP.dir/objects.a @CMakeFiles\BicubicWSTP.dir\objects1.rsp
-C:\Strawberry\c\bin\c++.exe -static-libgcc -static-libstdc++ -Wl,--whole-archive CMakeFiles\BicubicWSTP.dir/objects.a -Wl,--no-whole-archive -o BicubicWSTP.exe -Wl,--out-implib,libBicubicWSTP.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BicubicWSTP.dir\linkLibs.rsp

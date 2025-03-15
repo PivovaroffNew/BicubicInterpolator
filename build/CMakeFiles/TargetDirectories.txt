@@ -1,14 +1,3 @@
-E:/git/BicubicInterpolator/build/CMakeFiles/edit_cache.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/rebuild_cache.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/list_install_components.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/install.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/install/local.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/install/strip.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/interior_math.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/BicubicWSTP.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/edit_cache.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/rebuild_cache.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/list_install_components.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/install.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/install/local.dir
-E:/git/BicubicInterpolator/build/src/CMakeFiles/install/strip.dir
+E:/git/BicubicInterpolator/build/CMakeFiles/BicubicInterpolator.dir
+E:/git/BicubicInterpolator/build/CMakeFiles/ALL_BUILD.dir
+E:/git/BicubicInterpolator/build/CMakeFiles/ZERO_CHECK.dir
