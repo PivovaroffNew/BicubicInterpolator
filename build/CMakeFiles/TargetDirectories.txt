@@ -1,3 +1,0 @@
-E:/git/BicubicInterpolator/build/CMakeFiles/BicubicInterpolator.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/ALL_BUILD.dir
-E:/git/BicubicInterpolator/build/CMakeFiles/ZERO_CHECK.dir

@@ -12,6 +12,23 @@
 static std::map<int, std::unique_ptr<BicubicInterpolator>> interpolators;
 static int nextHandle = 0;
 
+std::vector<std::vector<double>> transposeMatrix(
+  const std::vector<std::vector<double>>& matrix) {
+if (matrix.empty() || matrix[0].empty()) return {};
+
+size_t rows = matrix.size();
+size_t cols = matrix[0].size();
+std::vector<std::vector<double>> transposed(cols, std::vector<double>(rows));
+
+for (size_t i = 0; i < rows; ++i) {
+  for (size_t j = 0; j < cols; ++j) {
+    transposed[j][i] = matrix[i][j];
+  }
+}
+
+return transposed;
+}
+
 // Function to create a new interpolator
 extern void WSTPCreateInterpolator(void) {
   int num_rows;
@@ -38,6 +55,8 @@ extern void WSTPCreateInterpolator(void) {
     WSReleaseRealList(stdlink, row_data, num_cols);
   }
 
+  matrix = transposeMatrix(matrix);
+
   try {
     // Create a new interpolator
     std::unique_ptr<BicubicInterpolator> interpolator =
@@ -53,60 +72,34 @@ extern void WSTPCreateInterpolator(void) {
   }
 }
 
-extern "C" DLLEXPORT double WSTPInterpolatePoint(double x, double y, int handle) {
+extern double WSTPInterpolatePoint(double x, double y, int handle) {
   double result = std::numeric_limits<double>::quiet_NaN();
-  
+
   auto it = interpolators.find(handle);
   if (it != interpolators.end()) {
-      try {
-          result = it->second->interpolate(x, y);
-      } catch (...) {
-          result = std::numeric_limits<double>::quiet_NaN();
-      }
+    try {
+      result = it->second->interpolate(x, y);
+    } catch (...) {
+      result = std::numeric_limits<double>::quiet_NaN();
+    }
   }
-  
+
   return result;
 }
 
-// // Function to interpolate at a point
-// extern int WSTPInterpolatePoint(int link) {
-//   // int handle;
-//   // double x, y;
-
-//   // if (!WSGetInteger(link, &handle) || !WSGetReal(link, &x) ||
-//   // !WSGetReal(link, &y)) {
-//   //     WSNewPacket(link);
-//   //     WSPutReal(link, std::numeric_limits<double>::quiet_NaN());
-//   //     return WSTP_RETURN_ERROR;
-//   // }
-
-//   // auto it = interpolators.find(handle);
-//   // double result = std::numeric_limits<double>::quiet_NaN();
-
-//   // if (it != interpolators.end()) {
-//   //     result = it->second->interpolate(x, y);
-//   // }
-
-//   // WSNewPacket(link);
-//   // WSPutReal(link, result);
-//   // return WSTP_RETURN_SUCCESS;
-//   return 1;
-// }
-
 // Function to delete an interpolator
-extern int WSTPDeleteInterpolator(int link) {
-  // int handle;
+extern void WSTPDeleteInterpolator(int handle) {
+  // Если интерполятор с заданным идентификатором не найден, отправляем $Failed
+  if (interpolators.find(handle) == interpolators.end()) {
+    WSPutSymbol(stdlink, "DeleteInterpolator::notfound");
+    WSNewPacket(stdlink);
+    return;
+  }
 
-  // if (!WSGetInteger(link, &handle)) {
-  //     WSNewPacket(link);
-  //     WSPutSymbol(link, "Failed");
-  //     return WSTP_RETURN_ERROR;
-  // }
+  // Удаляем интерполятор
+  interpolators.erase(handle);
 
-  // interpolators.erase(handle);
-
-  // WSNewPacket(link);
-  // WSPutSymbol(link, "Null");
-  // return WSTP_RETURN_SUCCESS;
-  return 0;
+  // Возвращаем Null в качестве успешного результата
+  WSNewPacket(stdlink);
+  WSPutSymbol(stdlink, "Success");
 }

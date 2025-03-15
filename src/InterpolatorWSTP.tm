@@ -16,18 +16,18 @@
 
 :Begin:
 :Function:       WSTPInterpolatePoint
-:Pattern:        InterpolatePoint[link_Integer]
-:Arguments:      {link}
-:ArgumentTypes:  {Integer}
-:ReturnType:     Integer
+:Pattern:        InterpolatePoint[x_Real, y_Real, handle_Integer]
+:Arguments:      {x, y, handle}
+:ArgumentTypes:  {Real, Real, Integer}
+:ReturnType:     Real
 :End:
 
 :Begin:
 :Function:       WSTPDeleteInterpolator
-:Pattern:        DeleteInterpolator[link_Integer]
-:Arguments:      {link}
+:Pattern:        DeleteInterpolator[handle_Integer]
+:Arguments:      {handle}
 :ArgumentTypes:  {Integer}
-:ReturnType:     Integer
+:ReturnType:     Manual
 :End:
 
 :Evaluate: End[]
