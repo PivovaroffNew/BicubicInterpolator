@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(BicubicInterpolatorWSTP CXX)
 
 # Определяем переменные для путей к Mathematica
-set(MATHEMATICA_DIR "W:/wolfram/13.0" CACHE PATH "Путь к директории Mathematica")
+set(MATHEMATICA_DIR "C:/Program Files/Wolfram Research/Mathematica/13.2" CACHE PATH "Путь к директории Mathematica")
 set(WSTP_DIR "${MATHEMATICA_DIR}/SystemFiles/Links/WSTP/DeveloperKit" CACHE PATH "Путь к директории DeveloperKit WSTP")
 
 # Определяем пути в зависимости от платформы

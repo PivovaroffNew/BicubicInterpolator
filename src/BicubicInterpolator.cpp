@@ -1,5 +1,7 @@
 #include "BicubicInterpolator.h"
 
+typedef std::function<double(double)> RealFuncOfOneVar;
+
 double BicubicInterpolator::cubicInterpolate(double p[4], double x) {
   return p[1] + 0.5 * x *
                     (p[2] - p[0] +
@@ -29,7 +31,6 @@ int BicubicInterpolator::getBoundedIndex(int idx, int max) const {
   return idx;
 }
 
-
 /*!
  * \brief Конструктор класса.
  * \param[in] data Двумерный вектор значений для интерполяции.
@@ -41,7 +42,8 @@ int BicubicInterpolator::getBoundedIndex(int idx, int max) const {
  * и является прямоугольной матрицей. В случае нарушения этих условий
  * выбрасывается исключение.
  */
-BicubicInterpolator::BicubicInterpolator(const std::vector<std::vector<double>>& data) {
+BicubicInterpolator::BicubicInterpolator(
+    const std::vector<std::vector<double>>& data) {
   if (data.empty() || data[0].empty()) {
     throw std::invalid_argument("Input data cannot be empty");
   }
@@ -133,4 +135,51 @@ double BicubicInterpolator::interpolate(double xx, double yy) const {
 
   // Интерполяция по y, используя результаты интерполяции по x
   return cubicInterpolate(temp, dy);
+}
+
+FunctionNIntegratorBySimpson::FunctionNIntegratorBySimpson(
+    const RealFuncOfOneVar& function, int n)
+    : function_(function) {
+  n_ = (n % 2 != 0) ? n + 1 : n;
+  if (n_ <= 0) throw std::invalid_argument("n must be positive");
+}
+
+// Реализация метода integrate
+double FunctionNIntegratorBySimpson::integrate(double param_start,
+                                               double param_end) const {
+  if (param_start == param_end) return 0.0;
+
+  const double h = (param_end - param_start) / n_;
+
+  double sum = (function_(param_start)) + (function_(param_end));
+
+  for (int i = 1; i < n_; i += 2) {
+    sum += 4.0 * (function_(param_start + i * h));
+  }
+  for (int i = 2; i < n_; i += 2) {
+    sum += 2.0 * (function_(param_start + i * h));
+  }
+
+  return sum * h / 3.0;
+}
+
+ParametricCurveIntegrator::ParametricCurveIntegrator(
+    const BicubicInterpolator& interpolator,
+    RealFuncOfOneVar xFunc, RealFuncOfOneVar yFunc)
+    : interpolator_(interpolator),
+      xFunc_(std::move(xFunc)),
+      yFunc_(std::move(yFunc)) {}
+
+double ParametricCurveIntegrator::integrate(double t_start, double t_end,
+                                            int n) const {
+  // Создаем обертку для функции кривой
+  auto curveFunc = [this](double t) {
+    const double x = this->xFunc_(t);
+    const double y = this->yFunc_(t);
+    return this->interpolator_.interpolate(x, y);
+  };
+
+  // Создаем интегратор и выполняем вычисления
+  FunctionNIntegratorBySimpson integrator(curveFunc, n);
+  return integrator.integrate(t_start, t_end);
 }

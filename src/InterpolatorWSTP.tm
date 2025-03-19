@@ -30,5 +30,37 @@
 :ReturnType:     Manual
 :End:
 
+:Begin:
+:Function:       WSTPDeleteInterpolator
+:Pattern:        DeleteInterpolator[handle_Integer]
+:Arguments:      {handle}
+:ArgumentTypes:  {Integer}
+:ReturnType:     Manual
+:End:
+
+:Begin:
+:Function: WSTPCreateSimpsonIntegrator
+:Pattern: CreateSimpsonIntegrator[func_, n_Integer]
+:Arguments: {n, func}
+:ArgumentTypes: {Integer, Manual}
+:ReturnType: Integer
+:End:
+
+:Begin:
+:Function: WSTPIntegrateSimpson
+:Pattern: IntegrateSimpson[handle_Integer, a_Real, b_Real]
+:Arguments: {handle, a, b}
+:ArgumentTypes: {Integer, Real, Real}
+:ReturnType: Real
+:End:
+
+:Begin:
+:Function: WSTPCreateCurveIntegrator
+:Pattern: CreateCurveIntegrator[interpHandle_Integer, xFunc_, yFunc_]
+:Arguments: {interpHandle, xFunc, yFunc}
+:ArgumentTypes: {Integer, Manual}
+:ReturnType: Integer
+:End:
+
 :Evaluate: End[]
 :Evaluate: EndPackage[]

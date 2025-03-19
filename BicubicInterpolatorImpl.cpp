@@ -9,7 +9,7 @@
 #define WSTP_RETURN_ERROR 1
 // Map for storing interpolator instances
 static std::map<int, std::unique_ptr<BicubicInterpolator>> interpolators;
-static int nextHandle = 1;
+static int interpolator_handle = 1;
 
 // The actual implementation functions
 extern "C" {
@@ -56,7 +56,7 @@ EXPORT int WSTPCreateInterpolator(WSLINK link) {
         // Create a new interpolator
         std::unique_ptr<BicubicInterpolator> interpolator = 
             std::make_unique<BicubicInterpolator>(matrix);
-        int handle = nextHandle++;
+        int handle = interpolator_handle++;
         interpolators[handle] = std::move(interpolator);
         
         WSNewPacket(link);
