@@ -2,6 +2,7 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <exception>
 
 #include "wstp.h"
 
