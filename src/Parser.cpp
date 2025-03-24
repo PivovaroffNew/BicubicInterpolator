@@ -2,6 +2,7 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <exception>
 
 #include "wstp.h"
 
@@ -34,7 +35,6 @@ double ParseExpression(WSLINK link) {
     double arg = ParseExpression(link);
     return sin(arg);
   }
-  // Добавьте другие операции по аналогии...
 
   // Обработка Slot[1] (аргумента функции #)
   else if (std::strcmp(head, "Slot") == 0) {
